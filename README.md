@@ -19,10 +19,14 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>High-Level Deployment and Configuration Steps</h2>
 
-- Step 1
-- Step 2
-- Step 3
-- Step 4
+- Set up nessary resources within Azure
+- Create virtual machines with Windows Server and Windows 10
+- Set up Windows Server to "dc-1"
+- Set up Windows 10 to "client-1"
+- Configure the network adapters to make "dc-1" a Domain Controller
+- Configure "client-1" to connect DNS Server "dc-1"
+- Test connection between "client-1" to "dc-1" through Windows Powershell
+- 
 
 <h2>Deployment and Configuration Steps</h2>
 
@@ -123,42 +127,42 @@ Next we are going to look at the DNS Server information within Windows Powershel
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/oHnLlq9.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next we will set up the Active Directory Services on "dc-1". To do this open up the Remote Desktop Connection to "dc-1". Click on the start button at the bottom left and select "Server Manager". When opened click on "Add roles and features" at the top. Then click "Next" button three times. Check the box for "Active Directory Domain Services" then select "Add Features" continue pressing "Next" until you can't anymore. Check the box to "Restart the destination server automatically if required" then select "Yes" and "Install"
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/XwcZcUz.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next we are going to promote "dc-1" to a "Domain Controller". Click on the flag icon and click on the link to promote server to a domain controller. Next click the bullet by "Add a new forest" and type "mydomain.com" then select the "Next" button. Enter a password into the fields and click the "Next" button. Uncheck the box by "Create DNS delegation" then click the "Next" button. Keep clicking the "Next" button until you can't anymore. Then select the "Install" button. After installation is complete the virtual machine will restart.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/wRTDidR.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+When reconnecting through Remote Desktop Connection you have to add "mydomain\labuser" as the username to log back into the "dc-1".
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/QKehJGO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Next we are going to create a new "Organizational Unit" in active directory called "_EMPLOYEES". To do this click on the start button the select the "Windows Administrative Tools" and select "Active Directory Users and Computers". Once opened right click on "mydomain.com" drag down to "New" and select "Organinizational Unit". In the name field type "_EMPLOYEES" and click the "Ok" button at the bottom.
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/cp6y66d.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Next we are going to create a new "Organizational Unit" in active directory called "_ADMINS". To do this click on the start button the select the "Windows Administrative Tools" and select "Active Directory Users and Computers". Once opened right click on "mydomain.com" drag down to "New" and select "Organinizational Unit". In the name field type "_ADMINS" and click the "Ok" button at the bottom.
 </p>
 <br />
 
