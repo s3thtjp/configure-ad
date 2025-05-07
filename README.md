@@ -239,58 +239,58 @@ Next in the "client-1" virtual machine we will log out of "jane_admin" and going
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/TWyq9mp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next we will configure the group policy to allow for accounts to be locked out. To do this we need to connect to "dc-1" using the Remote Desktop Connection. Once logged in, right click on the start button then select "Run" and then type "gpmc.msc" and hit enter. Click the drop down arrow for the "Forest: mydomain.com" then the drop down arrow for "Domains" then again with "mydomain.com". Right click on "Default Domain" and select "Edit". Navigate to Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies > Account Lockout Policy. Double click "Account lockout threshold" and enter "5" for invalid logon attempts then click "OK" at the bottom.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/Fafh3QO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now going back to the "client-1" we are going to update the Group Policies in a command line. To do this right click on the start button and select "Run" then type "cmd" and hit enter. In the command line type "gpupdate /force". It should now update the group policies to "client-1". Next step we will be testing the account lockout. Right click the start button then select "Run" and type "logoff".
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/PlEMSck.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now I'll be testing the new Group Policy by logging on "client-1" with a random user from the "_EMPLOYEES" folder in Active Directory earlier. Attempt to log on as this user in Remote Desktop Connect and purposefully enter a wrong password six times and see if you get it locked out. 
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/p3i7sWA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next we are going to be unlocking the account to the random user and logging in with the correct credentials. To do this we need to log back into "dc-1" and find the user in Active Directory. When logged in click on the start button the select the "Windows Administrative Tools" and select "Active Directory Users and Computers" Navigate to the "_EMPLOYEES" folder and find the user and double click on the user. Then click on the "Account" tab and check to box "Unlock Account" then click "Apply" and then click "OK" 
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/f5fOfGb.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Now we are going to be logging back onto "client-1" with the correct credentials for the user's account we just unlocked.
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/VwsD2L4.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Next we are going to perform a password reset on a user within Active Directory on "dc-1". To do this we need to log back into "dc-1" and find the user in Active Directory. When logged in click on the start button the select the "Windows Administrative Tools" and select "Active Directory Users and Computers" Navigate to the "_EMPLOYEES" folder and find the user and right click on the user then select "Reset Password". Enter in the new password and then press "OK"
+</p>
+<br />
+
+<p>
+<img src="https://i.imgur.com/Vf89Jzt.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+<p>
+Now we are going to view the events in Event Viewer to see the failed log in attempts by the user's account we unlocked earlier.
 </p>
 <br />
 
